@@ -5,24 +5,32 @@ import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
-
 public class MyServer {
 	public static void main(String[] args) {
-
 		try {
-			ServerSocket server = new ServerSocket(9540);
+			ServerSocket server = new ServerSocket(3333);
 			System.out.println("Server da duoc tao");
 			Socket client = server.accept();
 			System.out.println("Client da ket noi den server");
 			Scanner inFromClient = new Scanner(client.getInputStream());
 			PrintStream outToClient = new PrintStream(client.getOutputStream());
-			outToClient.println("Xin chao, ban ten gi?");
-			String ten = inFromClient.nextLine();
-			System.out.println("clien: " + ten);
-			outToClient.println("Rat vui duoc tro chuyen voi " + ten);
-		} catch (IOException e) {
+			outToClient.println("Moi ban nhap mot chuoi:");
+			String a = inFromClient.nextLine();
+			char[] in = a.toCharArray();
+		    int begin=0;
+		    int end=in.length-1;
+		    char temp;
+		    while(end>begin){
+		        temp = in[begin];
+		        in[begin]=in[end];
+		        in[end] = temp;
+		        end--;
+		        begin++;
+		    }
+		    outToClient.println(in);
+			} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+			}
 	}
 }
